@@ -10,7 +10,15 @@
 
 //upon refresh events stay on page
 var m = moment();
-var currentTimeEl = m.format("dddd, MMMM, Do, hA");
+var currentTimeEl = m.format("dddd, MMMM Do, hA");
 var $currentDayEl = $("#currentDay");
+var $descriptionEl = $(".description");
 
 $currentDayEl.html(currentTimeEl);
+
+$descriptionEl.on("click", "span", function () {
+  var text = $(this).text().trim();
+  var textInput = $("<textarea>").addClass("form-control").val(text);
+  $(this).replaceWith(textInput);
+  textInput.trigger("focus");
+});
