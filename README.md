@@ -13,7 +13,7 @@
 * JS
 
 ## Website
-https://odupree1988.github.io/Password-Generator/
+https://odupree1988.github.io/Work-Day-Scheduler/
 
 ## Contribution
 Made by Owen Dupree
