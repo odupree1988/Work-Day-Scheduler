@@ -1,7 +1,3 @@
-//send the data-* into an object array
-//retrieve the key word from the array
-//look at for in for retrieving the object
-
 // on page load
 // check local storage to see if anything in there
 // if local storage exists
@@ -29,16 +25,16 @@
 // remove input from description
 // add text to description with the data in local storage
 
-// var firstTime = document.getElementById("eight-am");
-
 var m = moment();
 var currentTimeEl = m.format("dddd, MMMM Do, hA");
 var $currentDayEl = $("#currentDay");
 var $descriptionEl = $(".description");
 var currentHour = m.format("HH");
 
+//show current day and time on page
 $currentDayEl.html(currentTimeEl);
 
+//array to check color change based on current time of day
 var timeColorArray = [
   $("#8"),
   $("#9"),
@@ -52,18 +48,7 @@ var timeColorArray = [
   $("#17"),
 ];
 
-// console.log(timeColorArray[1])
-// console.log($("eight-am").attr("data-time",))
-// var taskEl = [];
-
-// $(function () {
-//   $(".saveBtn").on("click", function (e) {
-// var taskText = $(this.target).parent().siblings().data("8")
-// console.log(taskText);
-// localStorage.setItem("taskVal", taskText)
-//   });
-// });
-
+//save the user input to local storage on save button click
 $(function () {
   $(".saveBtn").on("click", function (e) {
     var $this = e;
@@ -80,37 +65,32 @@ $(function () {
     var taskText = localStorage.getItem("time-" + i);
     var textArea = $("textarea[data-time=" + i + "]");
     textArea.val(taskText);
-    // console.log(textArea)
   }
 });
 
-//loop to add class to change time
-//set an interval
-for (var i = 0; i < timeColorArray.length; i++) {
-  var timeSlotHour = parseInt(timeColorArray[i].attr("data-time"));
-  currentHour = parseInt(currentHour);
+//loop to add class to change time based on current hour
+var checkTime = function () {
+  for (var i = 0; i < timeColorArray.length; i++) {
+    var timeSlotHour = parseInt(timeColorArray[i].attr("data-time"));
+    currentHour = parseInt(currentHour);
 
-  // console.log(currentHour + timeSlotHour);
-  console.log(timeSlotHour);
-  // console.log(currentHour)
-  if (timeSlotHour < currentHour) {
-    console.log("<");
-    timeColorArray[i].addClass("past");
-    // return
-  } else if (timeSlotHour === currentHour) {
-    console.log("===");
-    timeColorArray[i].addClass("present");
-    // return
-  } else if (timeSlotHour > currentHour) {
-    console.log(">");
-    timeColorArray[i].addClass("future");
-    // return
+    //compare current time to slot time and change class accordingly
+    if (timeSlotHour < currentHour) {
+      // console.log("<");
+      timeColorArray[i].removeClass("present future").addClass("past");
+    } else if (timeSlotHour === currentHour) {
+      // console.log("===");
+      timeColorArray[i].removeClass("past future").addClass("present");
+    } else if (timeSlotHour > currentHour) {
+      // console.log(">");
+      timeColorArray[i].removeClass("past present").addClass("future");
+    }
   }
-}
+};
 
-// $(".description").on("click", function (e) {
-//   var $this = e;
-//   var inputEl = $("<input type='text'/>");
-//   $($this.target).html(inputEl);
-// });
-// });
+//check to see past/present/future classes need to update
+setInterval(function(){
+checkTime()
+}, 30000)
+
+checkTime()
