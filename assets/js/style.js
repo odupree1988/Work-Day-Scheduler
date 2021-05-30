@@ -61,9 +61,9 @@ var checkTime = function () {
   }
 };
 
-//check to see past/present/future classes need to update
-setInterval(function(){
-checkTime()
-}, 30000)
+//check to see if past/present/future classes need to update
+setInterval(function () {
+  checkTime();
+}, 30000);
 
-checkTime()
+checkTime();
