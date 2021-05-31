@@ -29,11 +29,10 @@ $(function () {
     var taskText = taskTextArea.val();
     var taskTime = taskTextArea.attr("data-time");
     localStorage.setItem("time-" + taskTime, taskText);
-    console.log(taskText, taskTime);
+    // console.log(taskText, taskTime);
   });
 
   //get all of the text areas
-  //using forEach() - MDN forEach
   for (var i = 8; i < 18; i++) {
     var taskText = localStorage.getItem("time-" + i);
     var textArea = $("textarea[data-time=" + i + "]");
@@ -42,28 +41,20 @@ $(function () {
 });
 
 //loop to add class to change time based on current hour
-var checkTime = function () {
-  for (var i = 0; i < timeColorArray.length; i++) {
-    var timeSlotHour = parseInt(timeColorArray[i].attr("data-time"));
-    currentHour = parseInt(currentHour);
+// var checkTime = function () {
+for (var i = 0; i < timeColorArray.length; i++) {
+  var timeSlotHour = parseInt(timeColorArray[i].attr("data-time"));
+  currentHour = parseInt(currentHour);
 
-    //compare current time to slot time and change class accordingly
-    if (timeSlotHour < currentHour) {
-      // console.log("<");
-      timeColorArray[i].removeClass("present future").addClass("past");
-    } else if (timeSlotHour === currentHour) {
-      // console.log("===");
-      timeColorArray[i].removeClass("past future").addClass("present");
-    } else if (timeSlotHour > currentHour) {
-      // console.log(">");
-      timeColorArray[i].removeClass("past present").addClass("future");
-    }
+  //compare current time to slot time and change class accordingly
+  if (timeSlotHour < currentHour) {
+    // console.log("<");
+    timeColorArray[i].removeClass("present future").addClass("past");
+  } else if (timeSlotHour === currentHour) {
+    // console.log("===");
+    timeColorArray[i].removeClass("past future").addClass("present");
+  } else if (timeSlotHour > currentHour) {
+    // console.log(">");
+    timeColorArray[i].removeClass("past present").addClass("future");
   }
-};
-
-//check to see if past/present/future classes need to update
-setInterval(function () {
-  checkTime();
-}, 30000);
-
-checkTime();
+}
